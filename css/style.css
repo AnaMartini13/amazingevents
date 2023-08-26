@@ -2,12 +2,34 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    /* outline: 1px solid rebeccapurple; */
+    max-width: 100%;
+}
+
+.details {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    flex-grow: 1;
 }
 
 nav{
     box-sizing: border-box;
     justify-content: end;
 }
+
+.bg-secondary {
+    background-color:  #eedec3 !important;
+  }
 
 #logo{
     height: 50%;
@@ -34,10 +56,8 @@ nav{
     justify-content: space-between;
 }
 
-main{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+.card{
+    width: 19rem;
 }
 
 .nav-pills{
@@ -89,4 +109,39 @@ td{
 .form-check-input:checked {
     background-color: #b40456;
     border-color: #b40456;
+}
+
+.container-fluid{
+    padding-right: 0;
+    padding-left: 0;
+}
+.row{
+    justify-content: center;
+    margin-left: 0;
+}
+@media only screen and (min-width:320px) and (max-width:655px){
+    .card{
+        width: 27rem;
+    }
+    #navfull{
+        display: none;
+    }
+    .nav-link.active{
+        -webkit-text-fill-color: #e9036f;
+    }
+}
+@media only screen and (min-width:656px) and (max-width:718px){
+    #navfull{
+        display:none;
+    }
+    .nav-link.active{
+        -webkit-text-fill-color: #e9036f;
+    }
+}    
+
+
+@media only screen and (min-width:719px) and (max-width:1440px){
+    #toggle{
+        display:none;
+    }
 }
