@@ -1,33 +1,87 @@
-const cardContainer = document.getElementById("cardContainer")
+const contenedor = document.getElementById("contenedor") 
+const contenedorCategories = document.getElementById("categories")
+const buscador = document.getElementById("buscador")
+const lupa = document.getElementById("lupa")
+const checkboxes = document.getElementsByClassName("form-check-input")
 
+let categories = extraerCategories(data.events)
 
-mostrarTarjetasUpcoming(data.events, cardContainer);
+mostrarTarjetasUpcoming(data.events, contenedor)
+mostrarCheckboxes(categories, contenedorCategories)
 
+contenedorCategories.addEventListener("change", filtroFull)
+buscador.addEventListener("input", filtroFull)
+lupa.addEventListener("click", filtroFull)
 
-function mostrarTarjetasUpcoming(events, ubicacion){
-    let tarjetas = ""
-    for(evento of events){
-        if(evento.date > "2023-01-01"){
-            tarjetas += createCard(evento)
-        }
-    }
-    ubicacion.innerHTML = tarjetas
-}
-
-
-function createCard(evento){
+function crearTarjeta(elemento){
     return`<div class="col mb-3 justify-content-center">
     <div class="card mt-3 mb-3"> 
-    <img src="${evento.image}" class="img-fluid card-img-top" alt="music_concert">
+    <img src="${elemento.image}" class="img-fluid card-img-top">
     <div class="card-body">
-        <h5 class="card-title">${evento.name}</h5>
-        <p class="card-text">${evento.description}</p>
+        <h5 class="card-title fw-bold">${elemento.name}</h5>
+        <p class="card-text">${elemento.description}</p>
         <div class="footer d-flex justify-content-between">
-            <span class="PRICE px-4 py-2">PRICE: ${evento.price}</span>
-            <a href="details.html" class="btn btn-primary">Details</a>
+            <span class="PRICE px-4 py-2">PRICE: ${elemento.price}</span>
+            <a href="./details.html?id=${elemento._id}" class="btn btn-primary">Details</a>
         </div>
     </div>
 </div>
 </div>`
 }
-            
+ 
+function mostrarTarjetasUpcoming(array, contenedor){
+    let tarjetas = ""
+    for(elemento of array){
+        if (new Date(elemento.date) < new Date("2023-01-01")){
+            tarjetas += crearTarjeta(elemento)
+        }
+    }
+    contenedor.innerHTML = tarjetas
+    if (array.length == 0){
+        contenedor.innerHTML = `<p class="fs-3 text-center">No se encontraron eventos</p>`
+        return
+    }
+}
+
+function crearCheckbox(dato){
+    return `<div class="form-check form-check-inline">
+    <input class="form-check-input" type="checkbox" id="${dato}" value="${dato}">
+    <label class="form-check-label" for="${dato}">${dato}</label>
+</div>`
+}
+
+function mostrarCheckboxes(categories, contenedor){
+    let html = ''
+    categories.forEach(dato => {
+        html += crearCheckbox(dato)
+    })
+    contenedor.innerHTML = html
+}
+ 
+function extraerCategories(array){
+    return array.map(elemento => elemento.category).filter((category, indice, categories) => categories.indexOf(category) === indice)
+}
+
+function filtrarPorTexto(array, texto){
+    return array = array.filter(elemento => elemento.name.toLowerCase().includes(texto.trim().toLowerCase()))
+}
+
+function filtrarCategories(array){
+    let checkboxes = Array.from(document.getElementsByClassName("form-check-input"))
+    let markedCheckboxes = checkboxes.filter(check => check.checked)
+    if(markedCheckboxes.length == 0){
+        return array
+    }
+    let valores = markedCheckboxes.map(Checkbox => Checkbox.value)
+    if(valores.length == 0){
+        return array
+    }
+    let arrayFiltrado = array.filter(elemento => valores.includes(elemento.category))
+    return arrayFiltrado  
+}
+
+function filtroFull(){
+    let filtro1 = filtrarCategories(data.events)
+    let filtro2 = filtrarPorTexto(filtro1, buscador.value)
+    mostrarTarjetasUpcoming(filtro2, contenedor)
+}
