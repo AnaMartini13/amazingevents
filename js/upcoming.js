@@ -21,7 +21,7 @@ function crearTarjeta(elemento){
         <h5 class="card-title fw-bold">${elemento.name}</h5>
         <p class="card-text">${elemento.description}</p>
         <div class="footer d-flex justify-content-between">
-            <span class="PRICE px-4 py-2">PRICE: ${elemento.price}</span>
+            <span class="PRICE px-4 py-2">PRICE: $${elemento.price}</span>
             <a href="./details.html?id=${elemento._id}" class="btn btn-primary">Details</a>
         </div>
     </div>

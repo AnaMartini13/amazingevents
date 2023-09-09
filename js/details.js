@@ -19,7 +19,7 @@ function crearTarjeta(evento){
             <h4>${evento.date}</h4>
             <p class="card-text pt-3">${evento.description}</p>
       <div class="footer d-flex justify-content-between">
-            <span class="px-54 py-3"><strong>PRICE: </strong>${evento.price}</span>
+            <span class="px-54 py-3"><strong>PRICE: </strong>$${evento.price}</span>
             <span class="px-4 py-3"><strong>PLACE: </strong>${evento.place}</span>
           </div>
       </div>
