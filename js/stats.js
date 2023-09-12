@@ -21,7 +21,6 @@ function hacerStats(events) {
             mostrarTabla3()
 }
 
-
 function extraerTabla1(events) {
     events.sort((a, b) => ((b.assistance * 100) / b.capacity) - ((a.assistance * 100) / a.capacity))
     highAss.push(events[0], events[1], events[2])
@@ -36,16 +35,18 @@ function extraerTabla1(events) {
 
 function mostrarTabla1() {
     let html = ''
+    
     for (let i = 0; i < highAss.length; i++) {
+        let highAssPercent = (highAss[i].assistance * 100) / (highAss[i].capacity)
+        let lowAssPercent = (lowAss[i].assistance * 100) / (lowAss[i].capacity)
         html += `<tr>
-                     <td>${highAss[i].name}  (${highAss[i].assistance})</td>
-                     <td>${lowAss[i].name}  (${lowAss[i].assistance})</td>
-                     <td>${largCap[i].name}</td>
+                     <td>${highAss[i].name} (${highAssPercent.toFixed(2)}%</td>
+                     <td>${lowAss[i].name} (${lowAssPercent.toFixed(2)}%</td>
+                     <td>${largCap[i].name} (${largCap[i].capacity}) </td>
                  </tr>`
     }
     tabla1.innerHTML = html
 }
-
 
 function extraerTabla2(events){
     let categories = [...new Set(events.map(elemento => elemento.category))]
@@ -134,3 +135,4 @@ function mostrarTabla3(){
     )
     tabla3.innerHTML = html
 }
+
