@@ -2,7 +2,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    /* outline: 1px solid rebeccapurple;  */
     max-width: 100%;
 }
 
@@ -29,7 +28,7 @@ nav{
 
 .bg-secondary {
     background-color:  #eedec3 !important;
-  }
+}
 
 #logo{
     height: 50%;
@@ -78,7 +77,6 @@ nav{
 
 .nav-pills{
     -webkit-text-fill-color: #212529;
-   
 }
 
 .nav-link.active{
@@ -88,7 +86,6 @@ nav{
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: var(--bs-nav-pills-link-actve-color);
     background-color: #e9036f;
-   
 }
 
 .btn:hover {

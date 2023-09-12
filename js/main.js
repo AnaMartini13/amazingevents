@@ -5,12 +5,12 @@ function traerDatos(callback){
     fetch('https://mindhub-xj03.onrender.com/api/amazing')
         .then(response => response.json())
         .then(dataApi => {
-            events = dataApi.events
-            currentDate = dataApi.currentDate
+            let events = dataApi.events
+            let currentDate = dataApi.currentDate
             console.log(events);
         
         callback(events);
-   })
+        })
     .catch(error => console.log(error)) 
 }
     
@@ -21,9 +21,9 @@ let buscador = document.getElementById("buscador")
 let lupa = document.getElementById("lupa")
 let checkboxes = document.getElementsByClassName("form-check-input")
 
-contenedorCategories.addEventListener("change", filtroFull)
-buscador.addEventListener("input", filtroFull)
-lupa.addEventListener("click", filtroFull)
+contenedorCategories.addEventListener("change", ()=> {filtroFull (events)})
+buscador.addEventListener("input", ()=> {filtroFull (events)})
+lupa.addEventListener("click", ()=> {filtroFull (events)})
 
 function crearTarjeta(elemento){
         return`<div class="col mb-3 justify-content-center">
@@ -69,29 +69,33 @@ function mostrarCheckboxes(categories, contenedor){
 }
 
 function extraerCategories(events){
-        return events.map(elemento => elemento.category).filter((category, indice, categories) => categories.indexOf(category) === indice)
+    return events.map(elemento => elemento.category).filter((category, indice, categories) => categories.indexOf(category) === indice)
 }
 
-function filtrarPorTexto(array, texto){
-    return array = array.filter(elemento => elemento.name.toLowerCase().includes(texto.trim().toLowerCase()))
+function filtrarPorTexto(events, texto){
+    console.log(events)
+    let filtrado = events.filter(elemento => elemento.name.toLowerCase().includes(texto.trim().toLowerCase()))
+    return filtrado
 }
 
-function filtrarCategories(array){
+function filtrarCategories(events){
     let checkboxes = Array.from(document.getElementsByClassName("form-check-input"))
     let markedCheckboxes = checkboxes.filter(check => check.checked)
     if(markedCheckboxes.length == 0){
-        return array
+        return events
     }
     let valores = markedCheckboxes.map(markedCheckboxes => markedCheckboxes.value)
     if(valores.length == 0){
-        return array
+        return events
     }
-    let arrayFiltrado = array.filter(elemento => valores.includes(elemento.category))
+    console.log(events)
+    let arrayFiltrado = events.filter(elemento => valores.includes(elemento.category))
     return arrayFiltrado  
 }
 
-function filtroFull(){
+function filtroFull(events){
     let filtro1 = filtrarCategories(events)
+    console.log(events)
     let filtro2 = filtrarPorTexto(filtro1, buscador.value)
     mostrarTarjetas(filtro2, contenedor)
 }
