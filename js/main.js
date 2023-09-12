@@ -5,7 +5,7 @@ function traerDatos(callback){
     fetch('https://mindhub-xj03.onrender.com/api/amazing')
         .then(response => response.json())
         .then(dataApi => {
-            let events = dataApi.events
+            events = dataApi.events
             let currentDate = dataApi.currentDate
             console.log(events);
         
