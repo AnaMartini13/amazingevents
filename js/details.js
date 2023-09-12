@@ -1,10 +1,12 @@
-const contenedor = document.getElementById("contenedor") 
+traerDatos(iniciar);
 
-let parametros = new URLSearchParams(window.location.search)
-let id = parametros.get("id")
-let evento = buscarEvento(id)
-
-mostrarTarjeta(evento, contenedor)
+function iniciar(events){
+  let parametros = new URLSearchParams(window.location.search)
+  let id = parametros.get("id")
+  let evento = buscarEvento(id)  
+  crearTarjeta(evento)
+  mostrarTarjeta(evento, contenedor)
+}
 
 function crearTarjeta(evento){
   return `<div class="card p-0 m-3" style="width: 800px;">
@@ -32,7 +34,5 @@ function mostrarTarjeta(evento, contenedor){
 }
 
 function buscarEvento(id){
-  return data.events.find(evento => evento._id == id)
+  return events.find(evento => evento._id == id)
 }
-
-
