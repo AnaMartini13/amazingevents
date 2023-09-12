@@ -1,11 +1,12 @@
 traerDatos(iniciar);
 
 function iniciar(events){
+    console.log(events)
     mostrarTarjetasUpcoming(events, contenedor)
     let categories = extraerCategories(events)
     extraerCategories(events)
     mostrarCheckboxes(categories, contenedorCategories)
-    filtroFull()
+    filtroFull(events)
 }
 
 function mostrarTarjetasUpcoming(events, contenedor){
@@ -22,7 +23,7 @@ function mostrarTarjetasUpcoming(events, contenedor){
     }
 }
 
-function filtroFull(){
+function filtroFull(events){
     let filtro1 = filtrarCategories(events)
     let filtro2 = filtrarPorTexto(filtro1, buscador.value)
     mostrarTarjetasUpcoming(filtro2, contenedor)

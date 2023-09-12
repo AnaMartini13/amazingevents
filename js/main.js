@@ -6,7 +6,7 @@ function traerDatos(callback){
         .then(response => response.json())
         .then(dataApi => {
             events = dataApi.events
-            let currentDate = dataApi.currentDate
+            currentDate = dataApi.currentDate
             console.log(events);
         
         callback(events);
